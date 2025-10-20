@@ -1,214 +1,703 @@
  <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bilal's Portfolio Website</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Muhammad Bilal - Full Stack Developer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --accent: #f59e0b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 100px 2rem 2rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            animation: wave 15s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-text .highlight {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text p {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 2rem;
+        }
+
+        #typed-text {
+            min-height: 40px;
+            font-size: 1.5rem;
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title span {
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-top: 0.5rem;
+            color: var(--dark);
+        }
+
+        /* Qualifications */
+        .qualifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .qual-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .qual-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(99,102,241,0.2);
+        }
+
+        .qual-card img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        .qual-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .qual-card p {
+            color: var(--gray);
+        }
+
+        .qual-card .btn {
+            margin-top: 1rem;
+            padding: 0.7rem 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(99,102,241,0.2);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-content h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .project-content p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .project-link {
+            display: inline-block;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            color: var(--secondary);
+        }
+
+        .project-link i {
+            margin-left: 0.5rem;
+        }
+
+        /* CV Section */
+        .cv-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 5rem 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        .cv-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+
+        .footer-bottom a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: var(--dark);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .hero-image {
+                order: -1;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <!-- Header -->
     <header>
         <nav>
-            <div class="left">Bilal's Portfolio</div>
-            <div class="toggle-button" id="menu-toggle">
+            <div class="logo">MB.</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#portfolio">PORTFOLIO</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
-            <div class="right" id="nav-menu">
-                <ul>
-                    <li><a href="#">HOME</a></li>
-                    <li><a href="#">ABOUT</a></li>
-                    <li><a href="#">PORTFOLIO</a></li>
-                    <li><a href="#">CONTACT</a></li>
-                </ul>
             </div>
         </nav>
     </header>
-    
-    <!-- ********************************************************************** -->
-    <main>
-        <section class="firstSection">
-            <div class="leftSection">
-                Hi, My Name is Muhammad <span class="purpol">Bilal</span>.
-                <div>and I'm a Passionate Web Developer.</div>
-                <span id="element">Highlighting Text</span>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Hi, I'm <span class="highlight">Muhammad Bilal</span></h1>
+                <p>A Passionate Web Developer</p>
+                <div id="typed-text"></div>
+                <div class="cta-buttons">
+                    <a href="#portfolio" class="btn btn-primary">View My Work</a>
+                    <a href="#contact" class="btn btn-secondary">Contact Me</a>
+                </div>
             </div>
-            <div class="rightSection"> <img src="pti.png" alt=""></div>
-        </section>
-        
-        <hr>
-        <!-- Next Secton -->
-        <section class="secondSection">
-            <span class="gray-text">What I have done so far</span>
-            <h1>MY Qualifications</h1>
-            <div class="box">
-                <div class="vertical">
-                    <img src="pti.png" alt="PNG" class="image-top">
-                    <div class="vertical-title">
-                        MATRIC IN CS {2016-2017}
-                    </div>
-                    <div class="vertical-desc">I did my Matric in 2017, from Govt Higher Secondary School Ghota Fateh
-                        Ghar.</div>
-                </div>
-                <div class="vertical">
-                    <img src="pti.png" alt="PNG" class="image-top">
-                    <div class="vertical-title">
-                        INTERMEDIATE {2019-2020}
-                    </div>
-                    <div class="vertical-desc">I have completed my Intermediate(F.S.C) in 2020 from Standard College
-                        Narowal. </div>
-                </div>
-                <div class="vertical">
-                    <img src="pti.png" alt="PNG" class="image-top">
-                    <div class="vertical-title">
-                        Bachelor's IN BSCS {2020-2024}
-                    </div>
-                    <div class="vertical-desc">I have completed my Bechelor in Computer Sciences in October 2024. </div>
-                </div>
-                <div class="vertical">
-                    <img src="pti.png" alt="PNG" class="image-top">
-                    <div class="vertical-title">
-                        My Github Link is Here
-                    </div>
-                    <a href="https://github.com/TechTrakker" id="btn">Github</a>
-                </div>
-
-
+            <div class="hero-image">
+                <img src="pti.png" alt="Muhammad Bilal">
             </div>
-
-
-        </section>
-        <!-- NEXT SECTION -->
-        <div class="proj-heading">
-            <h1>My Previous Projects</h1>
         </div>
-        <section class="projects">
+    </section>
 
-            <div class="project">
-                <h2>Main Page design</h2>
-                <p>A responsive main web page design.</p>
-                <a href=" https://techtrakker.github.io/Mark-Instruments/" class="view-btn" target="_blank">View</a>
+    <!-- Qualifications Section -->
+    <section id="about">
+        <div class="section-title">
+            <span>What I have done so far</span>
+            <h2>My Qualifications</h2>
+        </div>
+        <div class="qualifications-grid">
+            <div class="qual-card">
+                <img src="pti.png" alt="Education">
+                <h3>MATRIC IN CS</h3>
+                <p>2016-2017</p>
+                <p>I did my Matric in 2017, from Govt Higher Secondary School Ghota Fateh Ghar.</p>
             </div>
-         <h2>Laravel Live Surgical-Admin Website.</h2>
-                <p>Front-end using Html, Css, JavaScript & Back-end Php Laravel, Admin Panel for uploading products & blogs</p>
-                 <p>2700 + Products Uploaded, Main Categories and Sub-Categories by using slugs</p>
-                <a href=" https://www.zhost-surgical.com/" class="view-btn" target="_blank">View</a>
+            <div class="qual-card">
+                <img src="pti.png" alt="Education">
+                <h3>INTERMEDIATE</h3>
+                <p>2019-2020</p>
+                <p>I have completed my Intermediate(F.S.C) in 2020 from Standard College Narowal.</p>
             </div>
+            <div class="qual-card">
+                <img src="pti.png" alt="Education">
+                <h3>Bachelor's IN BSCS</h3>
+                <p>2020-2024</p>
+                <p>I have completed my Bachelor in Computer Sciences in October 2024.</p>
+            </div>
+            <div class="qual-card">
+                <img src="pti.png" alt="Github">
+                <h3>My Github</h3>
+                <p>Check out my code</p>
+                <a href="https://github.com/TechTrakker" class="btn btn-primary" target="_blank">Visit Github</a>
+            </div>
+        </div>
+    </section>
 
-          <h2>Laravel Live Sports Wear - Admin Website.</h2>
-                <p>Front-end using Html, Css, JavaScript & Back-end Php Laravel, Admin Panel for uploading products & blogs</p>
-                 <p>300 + Products Uploaded, Only Main Categories</p>
-                <a href="https://www.zhostintl.com/" class="view-btn" target="_blank">View</a>
+    <!-- Projects Section -->
+    <section id="portfolio">
+        <div class="section-title">
+            <span>My Work</span>
+            <h2>Previous Projects</h2>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-content">
+                    <h3>Laravel Live Surgical-Admin Website</h3>
+                    <p>Full-Stack website with PHP Laravel backend, Admin Panel for products & blogs. 2700+ Products with Categories and Sub-Categories using slugs.</p>
+                    <a href="https://www.zhost-surgical.com/" class="project-link" target="_blank">View Project <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
-            <div class="project">
-                <h2>ZHOST-Intl main page</h2>
-                <p>About Us page responsive design.</p>
-                <a href="https://techtrakker.github.io/ZHOST-Intl/" class="view-btn" target="_blank">View</a>
+            <div class="project-card">
+                <div class="project-content">
+                    <h3>Laravel Sports Wear - Admin Website</h3>
+                    <p>Full-Stack website with PHP Laravel, Admin Panel. 300+ Products with Main Categories.</p>
+                    <a href="https://www.zhostintl.com/" class="project-link" target="_blank">View Project <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
+            <div class="project-card">
+                <div class="project-content">
+                    <h3>Main Page Design</h3>
+                    <p>A responsive main web page design with modern UI/UX.</p>
+                    <a href="https://techtrakker.github.io/Mark-Instruments/" class="project-link" target="_blank">View Project <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-content">
+                    <h3>ZHOST-Intl Main Page</h3>
+                    <p>About Us page with responsive design and smooth animations.</p>
+                    <a href="https://techtrakker.github.io/ZHOST-Intl/" class="project-link" target="_blank">View Project <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-content">
+                    <h3>Contact Us Page</h3>
+                    <p>A responsive Contact Us Form with modern design.</p>
+                    <a href="https://techtrakker.github.io/Contact-Form/" class="project-link" target="_blank">View Project <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-content">
+                    <h3>Social Buttons</h3>
+                    <p>A responsive Social Buttons Layout with hover effects.</p>
+                    <a href="https://techtrakker.github.io/Social-Buttons/" class="project-link" target="_blank">View Project <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-content">
+                    <h3>iCode Guru</h3>
+                    <p>A responsive Main Page Design of iCode Guru platform.</p>
+                    <a href="https://techtrakker.github.io/iCode-Guru/" class="project-link" target="_blank">View Project <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-content">
+                    <h3>Figma Theme</h3>
+                    <p>A Figma Theme converted into responsive HTML/CSS design.</p>
+                    <a href="https://techtrakker.github.io/Figma_Theme/" class="project-link" target="_blank">View Project <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-content">
+                    <h3>Sports and Wears</h3>
+                    <p>E-commerce website developed with HTML, CSS, JavaScript.</p>
+                    <a href="https://techtrakker.github.io/ZHOST-INTERNATIONAL/" class="project-link" target="_blank">View Project <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <div class="project">
-                <h2>Contact Us Page</h2>
-                <p>A responsive Contact Us Form Design.</p>
-                <a href="https://techtrakker.github.io/Contact-Form/" class="view-btn" target="_blank">View</a>
-            </div>
+    <!-- CV Section -->
+    <section class="cv-section" id="contact">
+        <h2>Interested in Working Together?</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem;">Download my CV to learn more about my experience</p>
+        <a href="https://drive.google.com/file/d/1o8NvrfxZG1bb7ryN7nck9U3SUcH565Ij/view?usp=drive_link" class="btn btn-primary" target="_blank">
+            <i class="fas fa-download"></i> Download CV
+        </a>
+    </section>
 
-            <div class="project">
-                <h2>Social Buttons</h2>
-                <p>A responsive Social Butons Layout Design.</p>
-                <a href="https://techtrakker.github.io/Social-Buttons/" class="view-btn" target="_blank">View</a>
-            </div>
-
-            <div class="project">
-                <h2>iCode Guru</h2>
-                <p>A responsive Main Page Design of Icode Guru.</p>
-                <a href="https://techtrakker.github.io/iCode-Guru/" class="view-btn" target="_blank">View</a>
-            </div>
-
-            <div class="project">
-                <h2>FIGMA THEME </h2>
-                <p>A Figma Theme converted into responsive design from html css.</p>
-                <a href=" https://techtrakker.github.io/Figma_Theme/" class="view-btn" target="_blank">View </a>
-            </div>
-            <div class="project">
-                <h2>Sports and Wears </h2>
-                <p>Developed by Html, Css, JavaScript.</p>
-                <a href="https://techtrakker.github.io/ZHOST-INTERNATIONAL/" class="view-btn" target="_blank">View </a>
-            </div>
-        </section>
-        <!-- CV's SECTION ************************************************************** -->
-        <section class="cv-section">
-            <div class="cv-content">
-                <h1 class="cv-title">HERE's MY CV</h1>
-                <a href="https://drive.google.com/file/d/1o8NvrfxZG1bb7ryN7nck9U3SUcH565Ij/view?usp=drive_link"
-                    class="cv-btn" target="_blank">View CV</a>
-            </div>
-        </section>
-
-    </main>
-    <!-- Main Close*************************************************************** -->
+    <!-- Footer -->
     <footer>
-        <h1 class="footer-title">Bilal's Portfolio</h1>
         <div class="footer-content">
-            <div class="footer-info">
-                <h3>Informations:-</h3>
-                <p>Email: muhammadbilal036356@gmail.com</p>
-                <p>Cell: 0307-9599169</p>
-                <p class="footer-thankyou">Thank You for visiting</p>
+            <div class="footer-section">
+                <h3>Muhammad Bilal</h3>
+                <p>Full Stack Web Developer specializing in Laravel, PHP, and modern web technologies.</p>
             </div>
-            <div class="footer-nav">
-                <a href="#">HOME</a>
-                <a href="#">ABOUT</a>
-                <a href="#">PORTFOLIO</a>
-                <a href="#">CONTACT</a>
+            <div class="footer-section">
+                <h3>Contact Information</h3>
+                <p><i class="fas fa-envelope"></i> muhammadbilal036356@gmail.com</p>
+                <p><i class="fas fa-phone"></i> 0307-9599169</p>
             </div>
-            <div class="footer-social">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#home">HOME</a>
+                <a href="#about">ABOUT</a>
+                <a href="#portfolio">PORTFOLIO</a>
+                <a href="#contact">CONTACT</a>
+            </div>
+            <div class="footer-section">
                 <h3>Follow Me</h3>
-                <a href="https://www.instagram.com/bmsports001" class="icon instagram" aria-label="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://www.facebook.com/profile.php?id=61564501285280" class="icon facebook"
-                    aria-label="Facebook">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="https://twitter.com/yourprofile" class="icon twitter" aria-label="Twitter">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/muhammad-bilal-317728266" class="icon linkedin"
-                    aria-label="LinkedIn">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/bmsports001" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61564501285280" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/yourprofile" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.linkedin.com/in/muhammad-bilal-317728266" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                </div>
             </div>
         </div>
-        <div class="footer-copyright">
-            <p>Developed By <a href="https://www.linkedin.com/in/muhammad-bilal-317728266" style="color: gold;">Muhammad
-                    Bilal</a></p>
-            <p>&copy; 2024 all rights reserved || <span style="color: gold;">Bilal's Portfolio</span></p>
+        <div class="footer-bottom">
+            <p>Developed By <a href="https://www.linkedin.com/in/muhammad-bilal-317728266">Muhammad Bilal</a></p>
+            <p>&copy; 2024 All Rights Reserved | Bilal's Portfolio</p>
         </div>
     </footer>
 
-
-    <!-- Link to Font Awesome for Icons -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
-    <!-- Scripts*************************************************************************** -->
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     <script>
-        var typed = new Typed('#element', {
-            strings: ['<h2>My Skills</h2>', 'Full-Stack Developer','PHP Laravel Developer', 'Front-End developer', 'Wordpress Developer', 'Web Designer', 'Off-Page SEO', 'Social Media Marketing'],
+        // Typed.js
+        const typed = new Typed('#typed-text', {
+            strings: [
+                'Full-Stack Developer',
+                'PHP Laravel Developer',
+                'Front-End Developer',
+                'WordPress Developer',
+                'Web Designer',
+                'SEO Specialist',
+                'Social Media Marketing'
+            ],
             typeSpeed: 50,
+            backSpeed: 30,
+            loop: true
+        });
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.padding = '0.5rem 0';
+            } else {
+                header.style.padding = '1rem 0';
+            }
         });
     </script>
-    <script src="script.js"></script>
 </body>
-
 </html>
-
-
